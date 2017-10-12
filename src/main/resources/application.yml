@@ -9,5 +9,15 @@ spring:
     username: rubrum
     password: rubrum
 
+swagger:
+  title: Simple Secured Api
+  description: A simple secured api sample with kotlin
+  termsOfServiceUrl:
+  contact: Richou
+  license: Apache licence version 2.0
+  licenseUrl:
+  version: 2.0
+
+
 server:
   port: 8006

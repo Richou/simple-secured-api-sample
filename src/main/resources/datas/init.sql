@@ -1,3 +1,7 @@
+CREATE USER rubrum WITH PASSWORD 'rubrum';
+CREATE DATABASE rubrum;
+GRANT ALL PRIVILEGES ON DATABASE rubrum TO rubrum;
+
 INSERT INTO users(id, username, password, email) VALUES ('71f7a21a-4bd7-4c88-96a1-8f521393dce7', 'jack', 'password', 'jack@email.com');
 
 INSERT INTO roles (id, authority) VALUES  ('30b93a19-da04-4524-aac0-a56870892c7f', 'ROLE_ADMIN');

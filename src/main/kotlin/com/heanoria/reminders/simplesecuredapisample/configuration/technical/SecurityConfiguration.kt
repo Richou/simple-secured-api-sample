@@ -1,4 +1,4 @@
-package com.heanoria.reminders.simplesecuredapisample.configuration
+package com.heanoria.reminders.simplesecuredapisample.configuration.technical
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity

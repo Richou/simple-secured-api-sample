@@ -1,4 +1,4 @@
-package com.heanoria.reminders.simplesecuredapisample.configuration
+package com.heanoria.reminders.simplesecuredapisample.configuration.technical
 
 import com.heanoria.reminders.simplesecuredapisample.persistence.repositories.UserRepository
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
