@@ -10,7 +10,7 @@ class UserAuthentication(val user: UserEntity) : Authentication{
 
     private var authenticated: Boolean = true
 
-    override fun getAuthorities(): List<GrantedRole> = user.authorities.map { userRoleEntity: UserRoleEntity -> GrantedRole(userRoleEntity) }.toList()
+    override fun getAuthorities(): List<GrantedRole>? = user.authorities?.map { userRoleEntity: UserRoleEntity -> GrantedRole(userRoleEntity) }?.toList()
 
     override fun setAuthenticated(authenticated: Boolean) {
         this.authenticated = authenticated

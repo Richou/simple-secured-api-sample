@@ -31,7 +31,7 @@ class StatelessLoginFilter(private val urlMapping: String, authenticationManager
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
         if (authResult?.principal is UserFull) {
             val userEntity : UserFull = authResult.principal as UserFull
-            val loadedUser = this.userService.getEntityByMail(userEntity.getEmail())
+            val loadedUser = this.userService.getEntityByMail(userEntity?.getEmail())
             val userAuthentication = UserAuthentication(loadedUser)
 
             this.tokenAuthenticationService.addAuthentication(response, userAuthentication)

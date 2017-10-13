@@ -50,7 +50,7 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
     }
 
     private fun buildClaimsMap(user: UserEntity) : Map<String, Any?> {
-        val roles = user.authorities.stream().map { userRoleEntity: UserRoleEntity -> userRoleEntity.role.authority }.toList()
+        val roles = user.authorities?.stream()?.map { userRoleEntity: UserRoleEntity -> userRoleEntity.role.authority }?.toList()
         return mapOf(ROLES_CLAIMS_KEY to roles, USER_ID_CLAIMS_KEY to user.id, EMAIL_CLAIMS_KEY to user.email, USERNAME_CLAIMS_KEY to user.username)
     }
 

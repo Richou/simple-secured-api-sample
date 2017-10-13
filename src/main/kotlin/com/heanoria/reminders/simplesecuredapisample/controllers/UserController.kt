@@ -14,5 +14,5 @@ class UserController(private val userService: UserService) {
 
     @GetMapping("/users/{email:.+}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    fun doGetUsers(@PathVariable email: String) = userService.getByEmail(email)
+    fun doGetUsers(@PathVariable email: String, @RequestHeader(value = "Authorization") authorization: String) = userService.getByEmail(email)
 }
