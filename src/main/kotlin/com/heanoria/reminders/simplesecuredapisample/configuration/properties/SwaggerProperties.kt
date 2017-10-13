@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 @ConfigurationProperties(prefix = "swagger")
 class SwaggerProperties {
-    val title = ""
-    val description = ""
-    val termsOfServiceUrl = ""
-    val contact = ""
-    val license = ""
-    val licenseUrl = ""
-    val version = ""
+    var title = ""
+    var description = ""
+    var termsOfServiceUrl = ""
+    var contact = ""
+    var license = ""
+    var licenseUrl = ""
+    var version = ""
 }
