@@ -1,0 +1,30 @@
+version: '2.1'
+services:
+  srv:
+    build: .
+    container_name: secured-api-srv
+    depends_on:
+      - db
+    ports:
+      - 8001:8001
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=rubrum
+      - SERVER_PORT=8001
+    volumes:
+      - ${SRV_SECURITY_DIR}:/project/security
+  db:
+    image: postgres
+    container_name: secured-api-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=rubrum
+      - POSTGRES_USER=rubrum
+      - POSTGRES_PASSWORD=rubrum
+    volumes:
+      - postgresdata:/usr/share/postgres/data
+volumes:
+  postgresdata:
+    driver: local

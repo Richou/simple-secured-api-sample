@@ -25,3 +25,6 @@ CREATE TABLE user_role
     id_user UUID NOT NULL REFERENCES users (id),
     id_role UUID NOT NULL REFERENCES roles (id)
 );
+
+INSERT INTO roles (id, authority) VALUES  ('30b93a19-da04-4524-aac0-a56870892c7f', 'ROLE_ADMIN');
+INSERT INTO roles (id, authority) VALUES  ('66069f18-1c8f-4d3b-96c7-b1b6df3e2c9c', 'ROLE_USER');
