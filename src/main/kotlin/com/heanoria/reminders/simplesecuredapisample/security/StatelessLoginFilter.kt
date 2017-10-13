@@ -1,6 +1,8 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.heanoria.reminders.simplesecuredapisample.dto.User
+import com.heanoria.reminders.simplesecuredapisample.dto.UserFull
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
 import org.springframework.security.authentication.AuthenticationManager
@@ -27,10 +29,10 @@ class StatelessLoginFilter(private val urlMapping: String, authenticationManager
     }
 
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
-        if (authResult?.principal is UserEntity) {
-            val userEntity : UserEntity = authResult.principal as UserEntity
-            val loadedEntity = this.userService.loadUserByUsername(userEntity.email)
-            val userAuthentication = UserAuthentication(loadedEntity)
+        if (authResult?.principal is UserFull) {
+            val userEntity : UserFull = authResult.principal as UserFull
+            val loadedUser = this.userService.getEntityByMail(userEntity.getEmail())
+            val userAuthentication = UserAuthentication(loadedUser)
 
             this.tokenAuthenticationService.addAuthentication(response, userAuthentication)
 

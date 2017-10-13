@@ -13,9 +13,9 @@ class RoleEntity {
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
     @org.hibernate.annotations.Type(type="pg-uuid")
-    val id: UUID? = null
+    lateinit var id: UUID
 
     @Basic
     @Column(name = "authority")
-    val authority: String = ""
+    lateinit var authority: String
 }

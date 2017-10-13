@@ -30,7 +30,7 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
 
     fun parseUserFromToken(token:String) : UserEntity {
         val mailFromToken :String = getMailFromToken(token) as String
-        return userService.loadUserByUsername(mailFromToken)
+        return userService.getEntityByMail(mailFromToken)
     }
 
     private fun getMailFromToken(token: String) = validateTokenSignature(token)[EMAIL_CLAIMS_KEY]
@@ -50,7 +50,7 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
     }
 
     private fun buildClaimsMap(user: UserEntity) : Map<String, Any?> {
-        val roles = user.authorities.stream().map { userRoleEntity: UserRoleEntity? -> userRoleEntity?.authority }.toList()
+        val roles = user.authorities.stream().map { userRoleEntity: UserRoleEntity -> userRoleEntity.role.authority }.toList()
         return mapOf(ROLES_CLAIMS_KEY to roles, USER_ID_CLAIMS_KEY to user.id, EMAIL_CLAIMS_KEY to user.email, USERNAME_CLAIMS_KEY to user.username)
     }
 

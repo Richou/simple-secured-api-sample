@@ -7,24 +7,20 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user_role")
-class UserRoleEntity : GrantedAuthority {
+class UserRoleEntity {
 
     @Id
     @Column(name = "id")
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
     @org.hibernate.annotations.Type(type="pg-uuid")
-    val id: UUID? = null
+    lateinit var id: UUID
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    val user: UserEntity? = null
+    lateinit var user: UserEntity
 
     @ManyToOne
     @JoinColumn(name = "id_role")
-    private val role: RoleEntity? = null
-
-    override fun getAuthority(): String? {
-        return role?.authority
-    }
+    lateinit var role: RoleEntity
 }

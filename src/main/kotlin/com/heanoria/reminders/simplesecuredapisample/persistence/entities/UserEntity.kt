@@ -7,40 +7,26 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "users")
-class UserEntity : UserDetails {
+class UserEntity {
     @Id
     @Column(name = "id")
     @GenericGenerator(name = "uuid-gen", strategy = "uuid2")
     @GeneratedValue(generator = "uuid-gen")
     @org.hibernate.annotations.Type(type="pg-uuid")
-    val id: UUID? = null
+    lateinit var id: UUID
 
     @Basic
     @Column(name = "username")
-    private val username: String = ""
+    lateinit var username: String
 
     @Basic
     @Column(name = "password")
-    private val password: String = ""
+    lateinit var password: String
 
     @Basic
     @Column(name = "email")
-    val email: String = ""
+    lateinit var email: String
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = arrayOf(CascadeType.ALL))
-    private val authorities:List<UserRoleEntity> = emptyList()
-
-    override fun getUsername() = username
-
-    override fun getPassword() = password
-
-    override fun getAuthorities() = authorities
-
-    override fun isEnabled() = true
-
-    override fun isCredentialsNonExpired() = true
-
-    override fun isAccountNonExpired() = true
-
-    override fun isAccountNonLocked() = true
+    var authorities:List<UserRoleEntity> = emptyList()
 }
