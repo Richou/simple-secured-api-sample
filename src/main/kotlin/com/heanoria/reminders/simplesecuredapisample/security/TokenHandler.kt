@@ -21,7 +21,7 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
     private val EMAIL_CLAIMS_KEY = "email"
     private val USER_ID_CLAIMS_KEY = "uid"
     private val USERNAME_CLAIMS_KEY = "username"
-    private val TOKEN_REPLACEMENT_PATTERN = "%TOKEN%"
+
     private val TOKEN_EXPIRATION_DURATION = 2L
 
     fun createTokenForUser(user: UserEntity): String {
@@ -50,7 +50,7 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
     }
 
     private fun buildClaimsMap(user: UserEntity) : Map<String, Any?> {
-        val roles = user.authorities?.stream()?.map { userRoleEntity: UserRoleEntity -> userRoleEntity.role.authority }?.toList()
+        val roles = user.authorities?.stream()?.map { userRoleEntity: UserRoleEntity -> userRoleEntity.role?.authority }?.toList()
         return mapOf(ROLES_CLAIMS_KEY to roles, USER_ID_CLAIMS_KEY to user.id, EMAIL_CLAIMS_KEY to user.email, USERNAME_CLAIMS_KEY to user.username)
     }
 

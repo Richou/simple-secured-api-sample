@@ -5,5 +5,5 @@ import org.springframework.security.core.GrantedAuthority
 
 
 class GrantedRole(private val userRoleEntity: UserRoleEntity) : GrantedAuthority {
-    override fun getAuthority() = userRoleEntity.role.authority
+    override fun getAuthority() = userRoleEntity.role?.authority
 }
