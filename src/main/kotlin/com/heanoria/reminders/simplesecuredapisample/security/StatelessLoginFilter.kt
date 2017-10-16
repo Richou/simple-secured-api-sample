@@ -1,6 +1,7 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.heanoria.reminders.simplesecuredapisample.dto.Credentials
 import com.heanoria.reminders.simplesecuredapisample.dto.User
 import com.heanoria.reminders.simplesecuredapisample.dto.UserFull
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
@@ -23,15 +24,15 @@ class StatelessLoginFilter(private val urlMapping: String, authenticationManager
     }
 
     override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
-        val user: UserEntity = ObjectMapper().readValue(request?.inputStream, UserEntity::class.java)
-        val loginToken = UsernamePasswordAuthenticationToken(user.email, user.password)
+        val credentials: Credentials = ObjectMapper().readValue(request?.inputStream, Credentials::class.java)
+        val loginToken = UsernamePasswordAuthenticationToken(credentials.email, credentials.password)
         return authenticationManager.authenticate(loginToken)
     }
 
     override fun successfulAuthentication(request: HttpServletRequest?, response: HttpServletResponse?, chain: FilterChain?, authResult: Authentication?) {
         if (authResult?.principal is UserFull) {
-            val userEntity : UserFull = authResult.principal as UserFull
-            val loadedUser = this.userService.getEntityByMail(userEntity?.getEmail())
+            val userFull : UserFull = authResult.principal as UserFull
+            val loadedUser = this.userService.getEntityByMail(userFull.getEmail())
             val userAuthentication = UserAuthentication(loadedUser)
 
             this.tokenAuthenticationService.addAuthentication(response, userAuthentication)

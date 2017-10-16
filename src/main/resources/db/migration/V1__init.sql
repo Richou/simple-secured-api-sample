@@ -22,7 +22,7 @@ CREATE TABLE roles
 CREATE TABLE user_role
 (
     id UUID PRIMARY KEY NOT NULL,
-    id_user UUID NOT NULL REFERENCES users (id),
+    id_user UUID NOT NULL REFERENCES users (id) ON DELETE CASCADE,
     id_role UUID NOT NULL REFERENCES roles (id)
 );
 
