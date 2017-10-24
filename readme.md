@@ -53,7 +53,7 @@ Now that docker is installed, we need to build the image before run it:
 
 ```bash
 $ cd simple-secured-api-sample
-$ sudo docker-compose build . -t secured-api
+$ sudo docker-compose build
 ```
 
 #### Run the image
