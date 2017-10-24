@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "roles")
-data class RoleEntity(
+class RoleEntity(
     @Id @Column(name = "id") @GenericGenerator(name = "uuid-gen", strategy = "uuid2") @GeneratedValue(generator = "uuid-gen") @Type(type = "pg-uuid")
     var id: UUID? = null,
 

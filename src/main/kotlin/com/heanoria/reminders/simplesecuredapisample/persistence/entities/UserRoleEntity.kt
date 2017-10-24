@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "user_role")
-data class UserRoleEntity(
+class UserRoleEntity(
     @Id @Column(name = "id") @GenericGenerator(name = "uuid-gen", strategy = "uuid2") @GeneratedValue(generator = "uuid-gen") @Type(type = "pg-uuid")
     var id: UUID? = null,
 
