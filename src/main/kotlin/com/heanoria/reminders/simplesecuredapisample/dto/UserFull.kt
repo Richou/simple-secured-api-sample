@@ -5,7 +5,7 @@ import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRo
 import org.springframework.security.core.userdetails.UserDetails
 import kotlin.streams.toList
 
-class UserFull(private val userEntity: UserEntity?) : UserDetails {
+data class UserFull(private val userEntity: UserEntity?) : UserDetails {
 
     fun getEmail() = userEntity?.email
 

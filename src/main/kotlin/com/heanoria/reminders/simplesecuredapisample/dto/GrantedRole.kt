@@ -4,6 +4,6 @@ import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRo
 import org.springframework.security.core.GrantedAuthority
 
 
-class GrantedRole(private val userRoleEntity: UserRoleEntity) : GrantedAuthority {
+data class GrantedRole(private val userRoleEntity: UserRoleEntity) : GrantedAuthority {
     override fun getAuthority() = userRoleEntity.role?.authority
 }
