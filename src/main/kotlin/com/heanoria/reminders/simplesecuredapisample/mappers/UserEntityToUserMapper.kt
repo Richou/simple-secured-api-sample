@@ -9,5 +9,5 @@ import kotlin.streams.toList
 
 class UserEntityToUserMapper {
 
-    fun map(userEntity: UserEntity) = User(userEntity.id, userEntity.username, userEntity.email, userEntity.authorities?.stream()?.map { userRole: UserRoleEntity -> Role(userRole.id, userRole.role?.authority) }?.toList())
+    fun map(userEntity: UserEntity?) = User(userEntity?.id, userEntity?.username, userEntity?.email, userEntity?.authorities?.stream()?.map { userRole: UserRoleEntity -> Role(userRole.id, userRole.role?.authority) }?.toList())
 }
