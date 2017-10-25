@@ -40,7 +40,6 @@ class ArticleServiceImpl(private val articleRepository: ArticleRepository, priva
     }
 
     override fun isUserOwnerOfArticle(principal: Authentication, articleUpdate: ArticleUpdate): Boolean {
-        val findByIdAndUserId = this.articleRepository.getByIdAndUserId(articleUpdate.id, (principal as UserAuthentication).user.id)
-        return findByIdAndUserId != null
+        return this.articleRepository.getByIdAndUserId(articleUpdate.id, (principal as UserAuthentication).user.id) != null
     }
 }
