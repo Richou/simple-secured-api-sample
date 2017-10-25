@@ -8,6 +8,10 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: rubrum
     password: rubrum
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
 
 swagger:
   title: Simple Secured Api
