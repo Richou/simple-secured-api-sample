@@ -15,5 +15,7 @@ interface ArticleService {
 
     fun getArticlesForUser(pageable: Pageable, id: UUID): List<Article>
 
-    fun isUserOwnerOfArticle(principal: Authentication, articleUpdate: ArticleUpdate): Boolean
+    fun isUserOwnerOfArticle(principal: Authentication, id: UUID): Boolean
+
+    fun deleteArticle(id: UUID)
 }

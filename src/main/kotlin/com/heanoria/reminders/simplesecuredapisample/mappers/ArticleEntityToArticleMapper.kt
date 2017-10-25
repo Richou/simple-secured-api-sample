@@ -6,6 +6,9 @@ import com.heanoria.reminders.simplesecuredapisample.persistence.entities.Articl
 
 class ArticleEntityToArticleMapper {
     fun map(articleEntity: ArticleEntity): Article {
-        return Article(articleEntity.id, articleEntity.title, articleEntity.content, UserEntityToUserMapper().map(articleEntity.user), articleEntity.dateCreation, articleEntity.dateUpdated)
+        return Article(articleEntity.id, articleEntity.title, articleEntity.content,
+                UserEntityToUserMapper().map(articleEntity.user),
+                articleEntity.categories.map { categoryEntity ->  CategoryEntityToCategoryMapper().map(categoryEntity) }.toList(),
+                articleEntity.dateCreation, articleEntity.dateUpdated)
     }
 }

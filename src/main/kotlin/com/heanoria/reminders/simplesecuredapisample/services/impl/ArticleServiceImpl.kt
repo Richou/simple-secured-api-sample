@@ -6,6 +6,7 @@ import com.heanoria.reminders.simplesecuredapisample.dto.ArticleUpdate
 import com.heanoria.reminders.simplesecuredapisample.exceptions.NotFoundException
 import com.heanoria.reminders.simplesecuredapisample.mappers.ArticleEntityToArticleMapper
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.ArticleEntity
+import com.heanoria.reminders.simplesecuredapisample.persistence.entities.CategoryEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.repositories.ArticleRepository
 import com.heanoria.reminders.simplesecuredapisample.security.TokenHandler
 import com.heanoria.reminders.simplesecuredapisample.security.UserAuthentication
@@ -22,6 +23,7 @@ class ArticleServiceImpl(private val articleRepository: ArticleRepository, priva
         articleEntity.title = articleCreate.title
         articleEntity.content = articleCreate.content
         articleEntity.user = tokenHandler.parseUserFromToken(token)
+        articleEntity.categories = articleCreate.categories.map { category -> CategoryEntity(category.id, category.key) }.toList()
         val savedArticle = articleRepository.save(articleEntity)
         return ArticleEntityToArticleMapper().map(savedArticle)
     }
@@ -31,15 +33,20 @@ class ArticleServiceImpl(private val articleRepository: ArticleRepository, priva
         articleFromDb.title = articleUpdate.title
         articleFromDb.content = articleUpdate.content
         articleFromDb.dateUpdated = null
+        articleFromDb.categories = articleUpdate.categories.map { category -> CategoryEntity(category.id, category.key) }
         val updatedArticle = articleRepository.save(articleFromDb)
         return ArticleEntityToArticleMapper().map(updatedArticle)
+    }
+
+    override fun deleteArticle(id: UUID) {
+        this.articleRepository.delete(id)
     }
 
     override fun getArticlesForUser(pageable: Pageable, id: UUID): List<Article> {
         return this.articleRepository.findByUserId(pageable, id).map { articleEntity -> ArticleEntityToArticleMapper().map(articleEntity) }.toList()
     }
 
-    override fun isUserOwnerOfArticle(principal: Authentication, articleUpdate: ArticleUpdate): Boolean {
-        return this.articleRepository.getByIdAndUserId(articleUpdate.id, (principal as UserAuthentication).user.id) != null
+    override fun isUserOwnerOfArticle(principal: Authentication, id: UUID): Boolean {
+        return this.articleRepository.getByIdAndUserId(id, (principal as UserAuthentication).user.id) != null
     }
 }

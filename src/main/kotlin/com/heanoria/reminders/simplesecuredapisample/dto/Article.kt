@@ -8,5 +8,6 @@ data class Article(
     val title:String?,
     val content:String?,
     val user:User?,
+    val categories: List<Category>,
     val dateCreation: Date?,
     val dateUpdated: Date?)

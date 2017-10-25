@@ -5,6 +5,7 @@ import com.heanoria.reminders.simplesecuredapisample.dto.ArticleUpdate
 import com.heanoria.reminders.simplesecuredapisample.services.ArticleService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/v1")
@@ -14,6 +15,10 @@ class ArticleController(private val articleService: ArticleService) {
     fun doPostArticle(@RequestBody articleCreate: ArticleCreate, @RequestHeader("Authorization") authorization: String) = this.articleService.createArticle(articleCreate, authorization)
 
     @PutMapping("/articles")
-    @PreAuthorize("@articleService.isUserOwnerOfArticle(authentication, #articleUpdate)")
+    @PreAuthorize("@articleService.isUserOwnerOfArticle(authentication, #articleUpdate.id)")
     fun doPutArticle(@RequestBody articleUpdate: ArticleUpdate, @RequestHeader("Authorization") authorization: String) = this.articleService.updateArticle(articleUpdate)
+
+    @DeleteMapping("/articles/{id}")
+    @PreAuthorize("@articleService.isUserOwnerOfArticle(authentication, #id)")
+    fun doDeleteArticle(@PathVariable id: UUID, @RequestHeader("Authorization") authorization: String) = this.articleService.deleteArticle(id)
 }
