@@ -12,6 +12,7 @@ import java.util.*
 class ArticleController(private val articleService: ArticleService) {
 
     @PostMapping("/articles")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     fun doPostArticle(@RequestBody articleCreate: ArticleCreate, @RequestHeader("Authorization") authorization: String) = this.articleService.createArticle(articleCreate, authorization)
 
     @PutMapping("/articles")
