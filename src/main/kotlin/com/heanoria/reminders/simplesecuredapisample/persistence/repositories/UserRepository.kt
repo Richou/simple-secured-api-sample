@@ -10,7 +10,7 @@ import java.util.*
 
 @Repository
 interface UserRepository : JpaRepository<UserEntity, UUID> {
-    fun findByEmail(email: String?): UserEntity
+    fun findByEmail(email: String?): UserEntity?
 
     @Modifying
     @Query("DELETE FROM UserEntity u WHERE u.email = :email")

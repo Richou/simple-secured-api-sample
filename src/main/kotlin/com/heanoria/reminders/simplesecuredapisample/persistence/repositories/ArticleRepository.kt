@@ -10,5 +10,5 @@ import java.util.*
 interface ArticleRepository : JpaRepository<ArticleEntity, UUID> {
     fun findByUserId(@Param("pageable") pageable: Pageable, @Param("userId") userId: UUID) : List<ArticleEntity>
 
-    fun getByIdAndUserId(@Param("articleId") articleId: UUID, @Param("userId") userId: UUID?) : ArticleEntity
+    fun getByIdAndUserId(@Param("articleId") articleId: UUID, @Param("userId") userId: UUID?) : ArticleEntity?
 }

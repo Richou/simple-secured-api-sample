@@ -1,4 +1,4 @@
-package com.heanoria.reminders.simplesecuredapisample.dto
+package com.heanoria.reminders.simplesecuredapisample.datas.dto
 
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRoleEntity

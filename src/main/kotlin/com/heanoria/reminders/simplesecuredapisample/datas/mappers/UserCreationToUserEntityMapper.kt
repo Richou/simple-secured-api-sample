@@ -1,6 +1,6 @@
-package com.heanoria.reminders.simplesecuredapisample.mappers
+package com.heanoria.reminders.simplesecuredapisample.datas.mappers
 
-import com.heanoria.reminders.simplesecuredapisample.dto.UserCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserCreate
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.RoleEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRoleEntity
@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 class UserCreationToUserEntityMapper(private val roleEntity: RoleEntity) {
 
-    fun map(userCreate: UserCreate): UserEntity {
+    fun apply(userCreate: UserCreate): UserEntity {
         val encoder = BCryptPasswordEncoder()
         val userEntity = UserEntity()
         userEntity.username = userCreate.username

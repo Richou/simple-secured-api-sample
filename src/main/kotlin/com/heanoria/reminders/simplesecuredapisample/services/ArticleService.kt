@@ -1,8 +1,8 @@
 package com.heanoria.reminders.simplesecuredapisample.services
 
-import com.heanoria.reminders.simplesecuredapisample.dto.Article
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleCreate
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleUpdate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.Article
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleUpdate
 import org.springframework.data.domain.Pageable
 import org.springframework.security.core.Authentication
 import java.util.*

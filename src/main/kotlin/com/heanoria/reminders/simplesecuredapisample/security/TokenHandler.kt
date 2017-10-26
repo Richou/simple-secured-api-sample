@@ -1,10 +1,13 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
+import com.heanoria.reminders.simplesecuredapisample.configuration.properties.TokenProperties
+import com.heanoria.reminders.simplesecuredapisample.exceptions.ExpiredTokenException
 import com.heanoria.reminders.simplesecuredapisample.exceptions.InvalidTokenSignatureException
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRoleEntity
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
 import io.jsonwebtoken.Claims
+import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import java.security.KeyPair
@@ -15,14 +18,12 @@ import java.util.*
 import kotlin.streams.toList
 
 
-class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
+class TokenHandler(private val keyPair: KeyPair, private val userService: UserService, private val tokenProperties: TokenProperties) {
 
     private val ROLES_CLAIMS_KEY = "roles"
     private val EMAIL_CLAIMS_KEY = "email"
     private val USER_ID_CLAIMS_KEY = "uid"
     private val USERNAME_CLAIMS_KEY = "username"
-
-    private val TOKEN_EXPIRATION_DURATION = 2L
 
     fun createTokenForUser(user: UserEntity): String {
         return Jwts.builder().setClaims(buildClaimsMap(user)).setExpiration(calculateExpirationDate()).signWith(SignatureAlgorithm.RS512, keyPair.private).compact()
@@ -41,12 +42,14 @@ class TokenHandler(val keyPair: KeyPair, val userService: UserService) {
                     .parseClaimsJws(token).body
         } catch (exception: SignatureException) {
             throw InvalidTokenSignatureException()
+        } catch (exception: ExpiredJwtException) {
+            throw ExpiredTokenException(exception.message)
         }
     }
 
     private fun calculateExpirationDate(): Date? {
         val current = LocalDateTime.now()
-        return Date.from(current.plusHours(TOKEN_EXPIRATION_DURATION).atZone(ZoneId.systemDefault()).toInstant())
+        return Date.from(current.plusMinutes(tokenProperties.validityInMinutes).atZone(ZoneId.systemDefault()).toInstant())
     }
 
     private fun buildClaimsMap(user: UserEntity) : Map<String, Any?> {

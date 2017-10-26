@@ -1,10 +1,8 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.heanoria.reminders.simplesecuredapisample.dto.Credentials
-import com.heanoria.reminders.simplesecuredapisample.dto.User
-import com.heanoria.reminders.simplesecuredapisample.dto.UserFull
-import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.Credentials
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserFull
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-class StatelessLoginFilter(private val urlMapping: String, authenticationManager: AuthenticationManager, private val userService: UserService, private val tokenAuthenticationService: TokenAuthenticationService): AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(urlMapping)) {
+class StatelessLoginFilter(urlMapping: String, authenticationManager: AuthenticationManager, private val userService: UserService, private val tokenAuthenticationService: TokenAuthenticationService): AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(urlMapping)) {
 
     init {
         setAuthenticationManager(authenticationManager)

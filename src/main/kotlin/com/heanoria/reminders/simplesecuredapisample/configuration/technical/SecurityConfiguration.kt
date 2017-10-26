@@ -1,6 +1,7 @@
 package com.heanoria.reminders.simplesecuredapisample.configuration.technical
 
 import com.heanoria.reminders.simplesecuredapisample.configuration.properties.KeyPairProperties
+import com.heanoria.reminders.simplesecuredapisample.configuration.properties.TokenProperties
 import com.heanoria.reminders.simplesecuredapisample.security.*
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
 import org.springframework.context.annotation.Bean
@@ -27,7 +28,6 @@ class SecurityConfiguration(private val userService: UserService) : WebSecurityC
         http?.csrf()?.disable()?.exceptionHandling()?.and()?.anonymous()?.and()?.servletApi()?.and()?.authorizeRequests()
                 ?.antMatchers(HttpMethod.POST, LOGIN_URL_PATTERN)?.permitAll()?.and()
                 ?.addFilterBefore(statelessLoginFilter, UsernamePasswordAuthenticationFilter::class.java)
-                ?.addFilterBefore(statelessAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
                 ?.headers()?.cacheControl()
     }
 
@@ -36,14 +36,14 @@ class SecurityConfiguration(private val userService: UserService) : WebSecurityC
     }
 
     @Bean
-    fun tokenHandler(keiPair: KeyPair, userService: UserService) = TokenHandler(keiPair, userService)
+    fun tokenHandler(keiPair: KeyPair, userService: UserService, tokenProperties: TokenProperties) = TokenHandler(keiPair, userService, tokenProperties)
 
     @Bean
     fun tokenAuthenticationService(tokenHandler: TokenHandler) = TokenAuthenticationService(tokenHandler)
 
     @Bean
     fun statelessAuthenticationFilter(tokenAuthenticationService: TokenAuthenticationService) : StatelessAuthenticationFilter {
-        this.statelessAuthenticationFilter = StatelessAuthenticationFilter(tokenAuthenticationService)
+        this.statelessAuthenticationFilter = StatelessAuthenticationFilter(tokenAuthenticationService, authenticationManager())
         return this.statelessAuthenticationFilter
     }
 

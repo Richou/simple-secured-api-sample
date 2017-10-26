@@ -1,6 +1,6 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
-import com.heanoria.reminders.simplesecuredapisample.dto.GrantedRole
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.GrantedRole
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserRoleEntity
 import org.springframework.security.core.Authentication

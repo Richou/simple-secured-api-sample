@@ -1,7 +1,7 @@
 package com.heanoria.reminders.simplesecuredapisample.controllers
 
-import com.heanoria.reminders.simplesecuredapisample.dto.UserCreate
-import com.heanoria.reminders.simplesecuredapisample.dto.UserUpdate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserUpdate
 import com.heanoria.reminders.simplesecuredapisample.services.ArticleService
 import com.heanoria.reminders.simplesecuredapisample.services.UserService
 import io.swagger.annotations.ApiImplicitParam

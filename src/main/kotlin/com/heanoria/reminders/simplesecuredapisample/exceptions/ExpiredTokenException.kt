@@ -3,6 +3,5 @@ package com.heanoria.reminders.simplesecuredapisample.exceptions
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource Not Found")
-class NotFoundException(private val mess: String) : Exception(mess) {
-}
+@ResponseStatus(HttpStatus.FORBIDDEN, reason = "Token has been expired")
+class ExpiredTokenException(mess:String?) : Exception(mess)

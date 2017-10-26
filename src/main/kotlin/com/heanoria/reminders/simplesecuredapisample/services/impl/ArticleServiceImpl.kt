@@ -1,10 +1,10 @@
 package com.heanoria.reminders.simplesecuredapisample.services.impl
 
-import com.heanoria.reminders.simplesecuredapisample.dto.Article
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleCreate
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleUpdate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.Article
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleUpdate
 import com.heanoria.reminders.simplesecuredapisample.exceptions.NotFoundException
-import com.heanoria.reminders.simplesecuredapisample.mappers.ArticleEntityToArticleMapper
+import com.heanoria.reminders.simplesecuredapisample.datas.mappers.ArticleEntityToArticleMapper
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.ArticleEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.CategoryEntity
 import com.heanoria.reminders.simplesecuredapisample.persistence.repositories.ArticleRepository
@@ -25,17 +25,17 @@ class ArticleServiceImpl(private val articleRepository: ArticleRepository, priva
         articleEntity.user = tokenHandler.parseUserFromToken(token)
         articleEntity.categories = articleCreate.categories.map { category -> CategoryEntity(category.id, category.key) }.toList()
         val savedArticle = articleRepository.save(articleEntity)
-        return ArticleEntityToArticleMapper().map(savedArticle)
+        return ArticleEntityToArticleMapper().apply(savedArticle)
     }
 
     override fun updateArticle(articleUpdate: ArticleUpdate): Article? {
-        val articleFromDb: ArticleEntity = this.articleRepository.findOne(articleUpdate.id) ?: throw NotFoundException()
+        val articleFromDb: ArticleEntity = this.articleRepository.findOne(articleUpdate.id) ?: throw NotFoundException("Article not found.")
         articleFromDb.title = articleUpdate.title
         articleFromDb.content = articleUpdate.content
         articleFromDb.dateUpdated = null
         articleFromDb.categories = articleUpdate.categories.map { category -> CategoryEntity(category.id, category.key) }
         val updatedArticle = articleRepository.save(articleFromDb)
-        return ArticleEntityToArticleMapper().map(updatedArticle)
+        return ArticleEntityToArticleMapper().apply(updatedArticle)
     }
 
     override fun deleteArticle(id: UUID) {
@@ -43,7 +43,7 @@ class ArticleServiceImpl(private val articleRepository: ArticleRepository, priva
     }
 
     override fun getArticlesForUser(pageable: Pageable, id: UUID): List<Article> {
-        return this.articleRepository.findByUserId(pageable, id).map { articleEntity -> ArticleEntityToArticleMapper().map(articleEntity) }.toList()
+        return this.articleRepository.findByUserId(pageable, id).map { articleEntity -> ArticleEntityToArticleMapper().apply(articleEntity) }.toList()
     }
 
     override fun isUserOwnerOfArticle(principal: Authentication, id: UUID): Boolean {

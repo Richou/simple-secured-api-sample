@@ -1,4 +1,4 @@
-package com.heanoria.reminders.simplesecuredapisample.dto
+package com.heanoria.reminders.simplesecuredapisample.datas.dto
 
 import java.util.*
 

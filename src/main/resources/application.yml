@@ -22,6 +22,8 @@ swagger:
   licenseUrl:
   version: 2.0
 
+token:
+  validity-in-minutes: 120
 
 server:
   port: 8006

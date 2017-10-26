@@ -1,13 +1,13 @@
 package com.heanoria.reminders.simplesecuredapisample.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.heanoria.reminders.simplesecuredapisample.dto.Token
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.Token
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-class TokenAuthenticationService(val tokenHandler: TokenHandler) {
+class TokenAuthenticationService(private val tokenHandler: TokenHandler) {
 
     private val AUTH_HEADER_NAME = "Authorization"
 

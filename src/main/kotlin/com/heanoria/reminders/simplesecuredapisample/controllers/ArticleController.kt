@@ -1,7 +1,7 @@
 package com.heanoria.reminders.simplesecuredapisample.controllers
 
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleCreate
-import com.heanoria.reminders.simplesecuredapisample.dto.ArticleUpdate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.ArticleUpdate
 import com.heanoria.reminders.simplesecuredapisample.services.ArticleService
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*

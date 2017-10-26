@@ -1,8 +1,8 @@
 package com.heanoria.reminders.simplesecuredapisample.services
 
-import com.heanoria.reminders.simplesecuredapisample.dto.User
-import com.heanoria.reminders.simplesecuredapisample.dto.UserCreate
-import com.heanoria.reminders.simplesecuredapisample.dto.UserUpdate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.User
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserCreate
+import com.heanoria.reminders.simplesecuredapisample.datas.dto.UserUpdate
 import com.heanoria.reminders.simplesecuredapisample.persistence.entities.UserEntity
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
