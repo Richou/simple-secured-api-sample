@@ -4,7 +4,7 @@ This project is a simple secured API with Spring boot and Spring security with J
 
 ## Run the project
 
-### Generate KeyPair
+### Generate KeyPair for JWT signature
 
 **Create a directory for KeyPair**
 ```bash
